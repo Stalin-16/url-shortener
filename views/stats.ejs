@@ -1,0 +1,80 @@
+<h2 class="text-2xl font-bold mb-6">
+  Stats for:
+  <code class="text-blue-600"><%= link.shortCode %></code>
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Short URL -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Short URL</h3>
+    <p class="flex items-center space-x-3">
+      <a
+        href="<%= baseUrl %>/<%= link.shortCode %>"
+        target="_blank"
+        class="text-blue-600 underline"
+      >
+        <%= baseUrl %>/<%= link.shortCode %>
+      </a>
+
+      <button
+        class="btn-copy bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+        data-url="<%= baseUrl %>/<%= link.shortCode %>"
+      >
+        Copy
+      </button>
+    </p>
+  </div>
+
+  <!-- Destination -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Destination URL</h3>
+    <p class="truncate text-gray-700" title="<%= link.targetUrl %>">
+      <%= link.targetUrl %>
+    </p>
+  </div>
+
+  <!-- Total Clicks -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Total Clicks</h3>
+    <p class="text-3xl font-bold text-blue-600"><%= link.totalClicks %></p>
+  </div>
+
+  <!-- Last Clicked -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Last Clicked</h3>
+    <p>
+      <%= link.lastClicked ? new Date(link.lastClicked).toLocaleString() :
+      'Never' %>
+    </p>
+  </div>
+
+  <!-- Created -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="font-semibold mb-2">Created</h3>
+    <p><%= new Date(link.createdAt).toLocaleString() %></p>
+  </div>
+</div>
+
+<div class="mt-8 flex space-x-4">
+  <a
+    href="/"
+    class="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded"
+  >
+    Back to Dashboard
+  </a>
+
+  <button
+    class="btn-copy bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+    data-url="<%= baseUrl %>/<%= link.shortCode %>"
+  >
+    Copy
+  </button>
+
+  <button
+    id="btn-delete"
+    class="btn-delete bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded"
+    data-code="<%= link.shortCode %>"
+  >
+    Delete This Link
+  </button>
+</div>

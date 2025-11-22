@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= typeof title !== "undefined" ? title : "URL Shortener" %></title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="max-w-4xl mx-auto px-4 py-6">
+      <header class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">URL Shortener</h1>
+
+        <nav class="space-x-6 text-lg">
+          <a href="/" class="text-blue-600 hover:underline">Dashboard</a>
+          <a href="/healthz" class="text-blue-600 hover:underline">Health</a>
+        </nav>
+      </header>
+
+      <main><%- body %></main>
+    </div>
+
+    <script src="/js/<%= typeof script !== 'undefined' ? script : 'dashboard' %>.js"></script>
+  </body>
+</html>

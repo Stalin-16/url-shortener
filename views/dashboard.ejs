@@ -1,0 +1,118 @@
+<h1 class="text-2xl font-bold mb-6 text-gray-800">Dashboard</h1>
+
+<!-- Create Link Card -->
+<section class="bg-white shadow rounded-lg p-6 mb-8">
+  <h2 class="text-xl font-semibold mb-4">Create New Short Link</h2>
+
+  <form id="createLinkForm" class="space-y-4">
+    <!-- URL -->
+    <div>
+      <label class="block font-medium mb-1">Destination URL *</label>
+      <input
+        type="url"
+        id="targetUrl"
+        name="targetUrl"
+        required
+        placeholder="https://example.com"
+        class="w-full border border-gray-300 rounded-lg p-2"
+      />
+      <p id="urlError" class="text-red-600 text-sm"></p>
+    </div>
+
+    <!-- Custom Code -->
+    <div>
+      <label class="block font-medium mb-1">Custom Code (Optional)</label>
+      <input
+        type="text"
+        id="customCode"
+        name="customCode"
+        placeholder="myLink123"
+        pattern="[A-Za-z0-9]{6,8}"
+        class="w-full border border-gray-300 rounded-lg p-2"
+      />
+      <p id="codeError" class="text-red-600 text-sm"></p>
+    </div>
+
+    <!-- Submit -->
+    <button
+      id="submitBtn"
+      type="submit"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+    >
+      Create Short Link
+    </button>
+  </form>
+
+  <div id="formMessage" class="mt-3"></div>
+</section>
+
+<!-- Links Table -->
+<section class="bg-white shadow rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-4">Your Links</h2>
+
+  <% if (links.length === 0) { %>
+  <p class="text-gray-500">
+    No links created yet. Create your first one above!
+  </p>
+  <% } else { %>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="bg-gray-100 text-gray-700">
+          <th class="py-3 px-4 text-left">Short</th>
+          <th class="py-3 px-4 text-left">Target URL</th>
+          <th class="py-3 px-4 text-center">Clicks</th>
+          <th class="py-3 px-4 text-center">Last Clicked</th>
+          <th class="py-3 px-4 text-center">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% links.forEach(link => { %>
+        <tr class="border-b">
+          <td class="py-3 px-4">
+            <a
+              href="/stats/code/<%= link.shortCode %>"
+              class="text-blue-600 underline"
+            >
+              <%= link.shortCode %>
+            </a>
+          </td>
+
+          <td class="py-3 px-4 truncate max-w-xs" title="<%= link.targetUrl %>">
+            <%= link.targetUrl %>
+          </td>
+
+          <td class="py-3 px-4 text-center font-semibold">
+            <%= link.totalClicks %>
+          </td>
+
+          <td class="py-3 px-4 text-center">
+            <%= link.lastClicked ? new Date(link.lastClicked).toLocaleString() :
+            'Never' %>
+          </td>
+
+          <td class="py-3 grid grid-cols-2 text-center space-x-2">
+            <button
+              class="btn-copy bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+              data-url="<%= baseUrl %>/<%= link.shortCode %>"
+            >
+              Copy
+            </button>
+
+            <button
+              class="btn-delete bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+              data-code="<%= link.shortCode %>"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <% } %>
+</section>
